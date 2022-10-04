@@ -24,11 +24,22 @@ function addTweets(e) {
         return //Prevents the further use of additional lines of code
     }
 
+    const tweetObj = {
+        id: Date.now(),
+        individualTweet //individualTweet: individualTweet
+    }
+
     //Add to tweets array
-    
+    tweets = [...tweets, tweetObj]
+
+    //Create HTML
+    createHtml()
+
+    //Restart form
+    form.reset()
 }
 
-function showError(error) { 
+function showError(error) {
     const messageError = document.createElement("p")
     messageError.textContent = error
     messageError.classList.add("error")
@@ -40,5 +51,32 @@ function showError(error) {
     //To remove 
     setTimeout(() => {
         messageError.remove()
-    },3000)
+    }, 3000)
+}
+
+//Show a list of tweets
+function createHtml() {
+
+    cleanHTML()
+
+    if (tweets.length > 0) {
+
+        tweets.forEach(tweet => {
+
+            //Create HTML
+            const li = document.createElement("li")
+
+            //add text
+            li.innerText = tweet.individualTweet
+
+            //insert in HTML
+            listTweets.appendChild(li)
+        })
+    }
+}
+
+function cleanHTML() {
+    while (listTweets.firstChild) {
+        listTweets.removeChild(listTweets.firstChild)
+    }
 }
